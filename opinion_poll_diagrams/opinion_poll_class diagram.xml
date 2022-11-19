@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" modified="2022-08-25T02:28:40.682Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36" etag="AsnP7MWZXpx3YZxoj2t9" version="20.2.7" type="github">
+  <diagram id="pJg6JL1VAhGWIZL3tZZ_" name="Página-1">
+    <mxGraphModel dx="914" dy="552" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6nj3uV0W5-f-FwF53Pn4-2" value="&lt;b&gt;Data Layer&lt;br&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;align=left;html=1;labelPosition=right;verticalLabelPosition=top;verticalAlign=bottom;fillColor=#ffe6cc;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="205" y="170" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="6nj3uV0W5-f-FwF53Pn4-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#663300;" parent="1" source="6nj3uV0W5-f-FwF53Pn4-3" target="6nj3uV0W5-f-FwF53Pn4-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6nj3uV0W5-f-FwF53Pn4-3" value="RemoteAuthentication" style="rounded=0;whiteSpace=wrap;html=1;gradientColor=none;strokeColor=#663300;strokeWidth=2;fontStyle=0" parent="1" vertex="1">
+          <mxGeometry x="245" y="250" width="140" height="48.75" as="geometry" />
+        </mxCell>
+        <mxCell id="6nj3uV0W5-f-FwF53Pn4-5" value="&lt;b&gt;Domain&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;align=left;html=1;labelPosition=right;verticalLabelPosition=top;verticalAlign=bottom;fillColor=#f8cecc;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="130" y="380" width="560" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="6nj3uV0W5-f-FwF53Pn4-16" value="HttpClient" style="rounded=1;whiteSpace=wrap;html=1;gradientColor=none;strokeColor=#663300;strokeWidth=2;fontStyle=0;dashed=1;" parent="1" vertex="1">
+          <mxGeometry x="260" y="190" width="110" height="38.75" as="geometry" />
+        </mxCell>
+        <mxCell id="bGLD6hgS1U-BR7Mnog1u-6" value="Account" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;strokeWidth=2;strokeColor=#660000;" vertex="1" parent="1">
+          <mxGeometry x="530" y="429" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="bGLD6hgS1U-BR7Mnog1u-7" value="+ accessToken: String" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="bGLD6hgS1U-BR7Mnog1u-6">
+          <mxGeometry y="26" width="140" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="bGLD6hgS1U-BR7Mnog1u-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#660000;" edge="1" parent="1" source="bGLD6hgS1U-BR7Mnog1u-11" target="bGLD6hgS1U-BR7Mnog1u-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bGLD6hgS1U-BR7Mnog1u-11" value="&lt;p style=&quot;margin: 4px 0px 0px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Authentication&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;+ auth(String email, String password): Future&amp;lt;Account&amp;gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=center;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;strokeColor=#660000;strokeWidth=2;rounded=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="417.5" width="330" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="bGLD6hgS1U-BR7Mnog1u-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#663300;" edge="1" parent="1" source="6nj3uV0W5-f-FwF53Pn4-3" target="bGLD6hgS1U-BR7Mnog1u-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
