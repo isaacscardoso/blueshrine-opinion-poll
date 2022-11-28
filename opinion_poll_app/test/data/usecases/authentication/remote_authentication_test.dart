@@ -12,28 +12,35 @@ class RemoteAuthentication {
   });
 
   Future<void> authentication() async {
-    await httpClient.request(url: url);
+    await httpClient.request(url: url, method: 'POST');
   }
 }
 
 abstract class HttpClient {
-  Future<void>? request({required String url});
+  Future<void>? request({
+    required String url,
+    required String method,
+  });
 }
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
+  late HttpClientSpy httpClient;
+  late String url;
+  late RemoteAuthentication systemUnderTest;
+
+  setUp(() {
+    httpClient = HttpClientSpy();
+    url = faker.internet.httpUrl();
+    systemUnderTest = RemoteAuthentication(httpClient: httpClient, url: url);
+  });
+
   test(
-    'This test is intended to verify that the query to HttpClient is being made with the correct URL.',
+    'This test is intended to verify that the query to HttpClient is being made with the correct URL and correct METHOD.',
     () async {
-      final httpClient = HttpClientSpy();
-      final url = faker.internet.httpUrl();
-      final systemUnderTest =
-          RemoteAuthentication(httpClient: httpClient, url: url);
-
       await systemUnderTest.authentication();
-
-      verify(httpClient.request(url: url));
+      verify(httpClient.request(url: url, method: 'POST'));
     },
   );
 }
