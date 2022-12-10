@@ -3,14 +3,16 @@ on:
   push:
     branches:
       - main
+      
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
+    - uses: actions/checkout@v3
       with:
+        message: 'Latest release'
         fetch-depth: '0'
-
+        
     - name: Bump version and push tag
       uses: anothrNick/github-tag-action@v1
       env:
