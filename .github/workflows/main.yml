@@ -10,6 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
+        tag: "latest"
         message: 'Latest release'
         fetch-depth: '0'
         
