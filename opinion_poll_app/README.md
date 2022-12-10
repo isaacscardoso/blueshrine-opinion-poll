@@ -1,4 +1,4 @@
-# Opinion Poll
+# Opinion Poll App
 
 This application is a list of polls of topics related to programming.
 
