@@ -1,5 +1,5 @@
 import 'package:faker/faker.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:opinion_poll_app/data/usecases/authentication/authentication.dart';
@@ -31,14 +31,16 @@ void main() {
     () async {
       await systemUnderTest.authentication(parameters);
 
-      verify(httpClient.request(
-        url: url,
-        method: 'POST',
-        body: {
-          'email': parameters.email,
-          'password': parameters.password,
-        },
-      ));
+      verify(
+        () => httpClient.request(
+          url: url,
+          method: 'POST',
+          body: {
+            'email': parameters.email,
+            'password': parameters.password,
+          },
+        ),
+      );
     },
   );
 }
