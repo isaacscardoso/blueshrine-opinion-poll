@@ -9,8 +9,8 @@
 > ## Exceção - URL inválida
 1. O sistema retorna uma mensagem de erro inesperado
 
-> ## Exceção - Dados inválidos
-1. O sistema retorna uma mensagem de erro inesperado
+> ## Exceção - Dados inválidos (error 400)
+1. ✅ O sistema retorna uma mensagem de erro inesperado
 
 > ## Exceção - Resposta inválida
 1. O sistema retorna uma mensagem de erro inesperado
