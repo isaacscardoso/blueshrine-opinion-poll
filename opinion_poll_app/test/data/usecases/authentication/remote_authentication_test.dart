@@ -2,11 +2,11 @@ import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:opinion_poll_app/data/http/http.dart';
 import 'package:opinion_poll_app/data/usecases/authentication/authentication.dart';
 
+import 'package:opinion_poll_app/domain/helpers/helpers.dart';
 import 'package:opinion_poll_app/domain/usecases/usecases.dart';
-
-import 'package:opinion_poll_app/data/http/http.dart';
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
@@ -41,6 +41,22 @@ void main() {
           },
         ),
       );
+    },
+  );
+
+  test(
+    'This test is intended to verify that the unexpected error exception is being thrown when HttpClient returns an error 400.',
+    () async {
+      when(
+        () => httpClient.request(
+          url: any(named: 'url'),
+          method: any(named: 'method'),
+          body: any(named: 'body'),
+        ),
+      ).thenThrow(HttpError.badRequest);
+
+      final future = systemUnderTest.authentication(parameters);
+      expect(future, throwsA(DomainError.unexpected));
     },
   );
 }
