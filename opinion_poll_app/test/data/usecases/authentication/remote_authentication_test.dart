@@ -16,19 +16,34 @@ void main() {
   late RemoteAuthentication systemUnderTest;
   late AuthenticationParameters parameters;
 
-  setUp(() {
-    httpClient = HttpClientSpy();
-    url = faker.internet.httpUrl();
-    systemUnderTest = RemoteAuthentication(httpClient: httpClient, url: url);
-    parameters = AuthenticationParameters(
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    );
-  });
+  setUp(
+    () {
+      httpClient = HttpClientSpy();
+      url = faker.internet.httpUrl();
+      systemUnderTest = RemoteAuthentication(httpClient: httpClient, url: url);
+      parameters = AuthenticationParameters(
+        email: faker.internet.email(),
+        password: faker.internet.password(),
+      );
+    },
+  );
 
   test(
     'This test is intended to verify that the query to HttpClient is being made with the correct values.',
     () async {
+      when(
+        () => httpClient.request(
+          url: any(named: 'url'),
+          method: any(named: 'method'),
+          body: any(named: 'body'),
+        ),
+      ).thenAnswer(
+        (_) async => {
+          'accessToken': faker.guid.guid(),
+          'name': faker.person.name(),
+        },
+      );
+
       await systemUnderTest.authenticate(parameters: parameters);
 
       verify(
@@ -125,7 +140,8 @@ void main() {
         },
       );
 
-      final account = await systemUnderTest.authenticate(parameters: parameters);
+      final account =
+          await systemUnderTest.authenticate(parameters: parameters);
       expect(account.accessToken, accessToken);
     },
   );
