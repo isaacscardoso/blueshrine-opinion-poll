@@ -3,6 +3,7 @@ import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/usecases.dart';
 
 import '../../http/http.dart';
+import '../../models/models.dart';
 
 class RemoteAuthenticationParameters {
   final String email;
@@ -42,7 +43,7 @@ class RemoteAuthentication implements Authentication {
         method: 'POST',
         body: body,
       );
-      return AccountEntity.fromJson(httpResponse);
+      return RemoteAccountModel.fromJson(httpResponse).toAccountEntity();
     } on HttpError catch (error) {
       throw error == HttpError.unauthorized
           ? DomainError.invalidCredentialError
