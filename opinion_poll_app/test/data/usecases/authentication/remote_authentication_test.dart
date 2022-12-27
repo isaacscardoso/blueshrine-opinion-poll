@@ -29,7 +29,7 @@ void main() {
   test(
     'This test is intended to verify that the query to HttpClient is being made with the correct values.',
     () async {
-      await systemUnderTest.authentication(parameters);
+      await systemUnderTest.authenticate(parameters: parameters);
 
       verify(
         () => httpClient.request(
@@ -55,7 +55,7 @@ void main() {
         ),
       ).thenThrow(HttpError.badRequest);
 
-      final future = systemUnderTest.authentication(parameters);
+      final future = systemUnderTest.authenticate(parameters: parameters);
       expect(future, throwsA(DomainError.unexpected));
     },
   );
@@ -71,7 +71,7 @@ void main() {
         ),
       ).thenThrow(HttpError.notFound);
 
-      final future = systemUnderTest.authentication(parameters);
+      final future = systemUnderTest.authenticate(parameters: parameters);
       expect(future, throwsA(DomainError.unexpected));
     },
   );
@@ -87,7 +87,7 @@ void main() {
         ),
       ).thenThrow(HttpError.internalServerError);
 
-      final future = systemUnderTest.authentication(parameters);
+      final future = systemUnderTest.authenticate(parameters: parameters);
       expect(future, throwsA(DomainError.unexpected));
     },
   );
@@ -103,8 +103,30 @@ void main() {
         ),
       ).thenThrow(HttpError.unauthorized);
 
-      final future = systemUnderTest.authentication(parameters);
+      final future = systemUnderTest.authenticate(parameters: parameters);
       expect(future, throwsA(DomainError.invalidCredentialError));
+    },
+  );
+
+  test(
+    'This test is intended to verify that AccountEntity is being returned when the HttpClient returns a status 200.',
+    () async {
+      final accessToken = faker.guid.guid();
+      when(
+        () => httpClient.request(
+          url: any(named: 'url'),
+          method: any(named: 'method'),
+          body: any(named: 'body'),
+        ),
+      ).thenAnswer(
+        (_) async => {
+          'accessToken': accessToken,
+          'name': faker.person.name(),
+        },
+      );
+
+      final account = await systemUnderTest.authenticate(parameters: parameters);
+      expect(account.accessToken, accessToken);
     },
   );
 }
