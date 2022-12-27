@@ -91,4 +91,20 @@ void main() {
       expect(future, throwsA(DomainError.unexpected));
     },
   );
+
+  test(
+    'This test is intended to verify that the invalid credentials error exception is being thrown when HttpClient returns an error 401.',
+    () async {
+      when(
+        () => httpClient.request(
+          url: any(named: 'url'),
+          method: any(named: 'method'),
+          body: any(named: 'body'),
+        ),
+      ).thenThrow(HttpError.unauthorized);
+
+      final future = systemUnderTest.authentication(parameters);
+      expect(future, throwsA(DomainError.invalidCredentialError));
+    },
+  );
 }
