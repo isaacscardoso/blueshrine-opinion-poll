@@ -15,8 +15,8 @@
 > ## Exceção - Resposta inválida
 1. O sistema retorna uma mensagem de erro inesperado
 
-> ## Exceção - Falha no servidor
-1. O sistema retorna uma mensagem de erro inesperado
+> ## Exceção - Falha no servidor (500 Internal Server Error)
+1. ✅ O sistema retorna uma mensagem de erro inesperado
 
-> ## Exceção - Credenciais inválidas
-1. O sistema retorna uma mensagem de erro informando que as credenciais estão erradas
+> ## Exceção - Credenciais inválidas (401 Unauthorized)
+1. ✅ O sistema retorna uma mensagem de erro informando que as credenciais estão erradas
