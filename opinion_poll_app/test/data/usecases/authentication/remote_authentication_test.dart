@@ -59,4 +59,20 @@ void main() {
       expect(future, throwsA(DomainError.unexpected));
     },
   );
+
+  test(
+    'This test is intended to verify that the unexpected error exception is being thrown when HttpClient returns an error 404.',
+    () async {
+      when(
+        () => httpClient.request(
+          url: any(named: 'url'),
+          method: any(named: 'method'),
+          body: any(named: 'body'),
+        ),
+      ).thenThrow(HttpError.notFound);
+
+      final future = systemUnderTest.authentication(parameters);
+      expect(future, throwsA(DomainError.unexpected));
+    },
+  );
 }
