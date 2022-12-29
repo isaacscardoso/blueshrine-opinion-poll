@@ -145,4 +145,20 @@ void main() {
       expect(account.accessToken, accessToken);
     },
   );
+
+  test(
+    'This test is intended to verify that the unexpected error exception is being thrown when HttpClient returns a status 200 with invalid data.',
+    () async {
+      when(
+        () => httpClient.request(
+          url: any(named: 'url'),
+          method: any(named: 'method'),
+          body: any(named: 'body'),
+        ),
+      ).thenAnswer((_) async => {'invalid_key': 'invalid_value'});
+
+      final future = systemUnderTest.authenticate(parameters: parameters);
+      expect(future, throwsA(DomainError.unexpected));
+    },
+  );
 }
