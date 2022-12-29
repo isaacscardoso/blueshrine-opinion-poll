@@ -4,8 +4,9 @@ import 'package:opinion_poll_app/domain/usecases/usecases.dart';
 import 'package:opinion_poll_app/data/http/http.dart';
 import 'package:opinion_poll_app/data/usecases/authentication/authentication.dart';
 
-import '../../mocks/mocks.dart';
+import '../../../domain/mocks/mocks.dart';
 import '../../../infra/mocks/mocks.dart';
+import '../../mocks/mocks.dart';
 
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
@@ -23,10 +24,7 @@ void main() {
       httpClient = HttpClientSpy();
       url = faker.internet.httpUrl();
       systemUnderTest = RemoteAuthentication(httpClient: httpClient, url: url);
-      parameters = AuthenticationParameters(
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-      );
+      parameters = ParametersFactory.authentication();
       apiResult = ApiFactory.correctBody();
       httpClient.mockRequest(apiResult);
     },
