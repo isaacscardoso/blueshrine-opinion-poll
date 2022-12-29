@@ -5,6 +5,7 @@ import 'package:opinion_poll_app/data/http/http.dart';
 import 'package:opinion_poll_app/data/usecases/authentication/authentication.dart';
 
 import '../../mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
 
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,7 +16,7 @@ void main() {
   late String url;
   late RemoteAuthentication systemUnderTest;
   late AuthenticationParameters parameters;
-  late Map<String, String> httpData;
+  late Map apiResult;
 
   setUp(
     () {
@@ -26,19 +27,14 @@ void main() {
         email: faker.internet.email(),
         password: faker.internet.password(),
       );
+      apiResult = ApiFactory.correctBody();
+      httpClient.mockRequest(apiResult);
     },
   );
 
   test(
     'This test is intended to verify that the query to HttpClient is being made with the correct values.',
     () async {
-      httpData = {
-        'accessToken': faker.guid.guid(),
-        'name': faker.person.name(),
-      };
-
-      httpClient.mockRequest(httpData);
-
       await systemUnderTest.authenticate(parameters: parameters);
 
       verify(
@@ -98,27 +94,20 @@ void main() {
   test(
     'This test is intended to verify that AccountEntity is being returned when the HttpClient returns a status 200.',
     () async {
-      httpData = {
-        'accessToken': faker.guid.guid(),
-        'name': faker.person.name(),
-      };
-
-      httpClient.mockRequest(httpData);
-
       final account =
           await systemUnderTest.authenticate(parameters: parameters);
-      expect(account.accessToken, httpData['accessToken']);
+
+      expect(account.accessToken, apiResult['accessToken']);
     },
   );
 
   test(
     'This test is intended to verify that the unexpected error exception is being thrown when HttpClient returns a status 200 with invalid data.',
     () async {
-      httpData = {'invalid_key': 'invalid_value'};
-
-      httpClient.mockRequest(httpData);
+      httpClient.mockRequest(ApiFactory.incorrectBody());
 
       final future = systemUnderTest.authenticate(parameters: parameters);
+
       expect(future, throwsA(DomainError.unexpected));
     },
   );
