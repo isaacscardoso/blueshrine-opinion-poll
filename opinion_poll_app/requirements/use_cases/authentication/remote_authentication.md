@@ -12,8 +12,8 @@
 > ## Exceção - Dados inválidos (400 Bad Request)
 1. ✅ O sistema retorna uma mensagem de erro inesperado
 
-> ## Exceção - Resposta inválida
-1. O sistema retorna uma mensagem de erro inesperado
+> ## Exceção - Resposta inválida (502 Bad Gateway)
+1. ✅ O sistema retorna uma mensagem de erro inesperado
 
 > ## Exceção - Falha no servidor (500 Internal Server Error)
 1. ✅ O sistema retorna uma mensagem de erro inesperado
