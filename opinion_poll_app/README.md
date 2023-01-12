@@ -1,16 +1,108 @@
-# Opinion Poll App
+[![AGPLv3 License](https://img.shields.io/badge/License-AGPL%20v3-yellow.svg)](https://github.com/isaacscardoso/opinion-poll/blob/main/LICENSE)
+![Dart Version](https://img.shields.io/static/v1?label=dart&message=2.18.6&color=00579d)
+![Flutter Version](https://img.shields.io/static/v1?label=flutter&message=3.3.10&color=42a5f5)
+![Null Safety](https://img.shields.io/static/v1?label=null-safety&message=done&color=success)
 
-This application is a list of polls of topics related to programming.
+# **Blue Shrine® - Opinion Poll App**
 
-## Getting Started
+![drawing_architecture_flutter](https://user-images.githubusercontent.com/88048363/211985134-25e39e8f-5e6f-4e07-90b3-9d05177df8c1.png)
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+> ## Principles
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* Single Responsibility Principle (SRP)
+* Open Closed Principle (OCP)
+* Liskov Substitution Principle (LSP)
+* Interface Segregation Principle (ISP)
+* Dependency Inversion Principle (DIP)
+* Separation of Concerns (SOC)
+* Don't Repeat Yourself (DRY)
+* You Aren't Gonna Need It (YAGNI)
+* Keep It Simple, Silly (KISS)
+* Command Query Responsibility Segregation (CQRS)
+* Composition Over Inheritance
+* Small Commits
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+> ## Design Patterns
+
+* Factory
+* Adapter
+* Composite
+* Decorator
+* Dependency Injection
+* Abstract Server
+* Composition Root
+* Builder
+* Singleton
+* Observer
+* Strategy
+* AAA (Arrange, Act, Assert)
+
+
+> ## Methodologies and Designs
+
+* TDD
+* BDD
+* Clean Architecture
+* Reactive Programming
+* GitFlow
+* Modular Design
+* Dependency Diagrams
+* Use Cases
+
+
+> ## Libraries and Tools
+
+* Flutter
+* Flutter Version Management
+* Http
+* Provider
+* GetX
+* Equatable
+* Mockito
+* Mocktail
+* Faker
+* Meta
+* Git
+* Flutter Secure Storage
+* LocalStorage
+* i18n
+* Image Test Utils
+* Network Image Mock
+
+
+> ## Dart and Flutter Features
+
+* Null Safety
+* Classes
+* Abstract Classes
+* Functions
+* Constants
+* Mixins
+* Extensions
+* Enums
+* Exceptions
+* Futures
+* Streams
+* Constructors
+* Async/Await
+* Stateless Widgets
+* Stateful Widgets
+* Material Theme
+* Assets
+* App Icon
+
+
+> ## Testing Features
+
+* Unit Tests
+* Widget Tests
+* Stream Tests
+* Integration Tests
+* Test Coverage
+* Test Doubles
+* Mocks
+* Stubs
+* Spies
