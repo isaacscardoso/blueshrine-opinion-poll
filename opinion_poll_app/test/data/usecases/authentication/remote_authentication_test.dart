@@ -5,7 +5,7 @@ import 'package:opinion_poll_app/data/http/http.dart';
 import 'package:opinion_poll_app/data/usecases/authentication/authentication.dart';
 
 import '../../../domain/mocks/mocks.dart';
-import '../../../infra/mocks/mocks.dart';
+import '../../../infrastructure/mocks/mocks.dart';
 import '../../mocks/mocks.dart';
 
 import 'package:faker/faker.dart';
