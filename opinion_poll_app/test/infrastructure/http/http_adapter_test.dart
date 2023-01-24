@@ -11,7 +11,11 @@ class HttpAdapter {
   HttpAdapter(this.client);
 
   Future<void> request({required String url, required String method}) async {
-    await client.post(Uri.parse(url));
+    final headers = {
+      'content-type': 'application/json',
+      'accept': 'application/json',
+    };
+    await client.post(Uri.parse(url), headers: headers);
   }
 }
 
@@ -20,10 +24,15 @@ void main() {
   late ClientSpy client;
   late String url;
   late Uri uri;
+  late Map<String, String> headers;
 
   setUp(() {
     client = ClientSpy();
     systemUnderTest = HttpAdapter(client);
+    headers = {
+      'content-type': 'application/json',
+      'accept': 'application/json',
+    };
   });
 
   setUpAll(() {
@@ -33,11 +42,12 @@ void main() {
 
   group('post', () {
     test('Should call the POST method using the correct values.', () async {
-      when(() => client.post(uri)).thenAnswer((_) async => Response('{}', 200));
+      when(() => client.post(uri, headers: headers))
+          .thenAnswer((_) async => Response('{}', 200));
 
       await systemUnderTest.request(url: url, method: 'post');
 
-      verify(() => client.post(uri));
+      verify(() => client.post(uri, headers: headers));
     });
   });
 }
