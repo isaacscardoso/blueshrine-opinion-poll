@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
@@ -10,12 +12,19 @@ class HttpAdapter {
 
   HttpAdapter(this.client);
 
-  Future<void> request({required String url, required String method}) async {
+  Future<void> request({
+    required String url,
+    required String method,
+    Map? body,
+  }) async {
     final headers = {
       'content-type': 'application/json',
       'accept': 'application/json',
     };
-    await client.post(Uri.parse(url), headers: headers);
+
+    final bodyEncoded = jsonEncode(jsonEncode(body));
+
+    await client.post(Uri.parse(url), headers: headers, body: bodyEncoded);
   }
 }
 
@@ -25,6 +34,8 @@ void main() {
   late String url;
   late Uri uri;
   late Map<String, String> headers;
+  late Map? body;
+  late String? bodyEncoded;
 
   setUp(() {
     client = ClientSpy();
@@ -33,6 +44,8 @@ void main() {
       'content-type': 'application/json',
       'accept': 'application/json',
     };
+    body = {'any_key': 'any_value'};
+    bodyEncoded = jsonEncode(jsonEncode(body));
   });
 
   setUpAll(() {
@@ -42,12 +55,12 @@ void main() {
 
   group('post', () {
     test('Should call the POST method using the correct values.', () async {
-      when(() => client.post(uri, headers: headers))
+      when(() => client.post(uri, headers: headers, body: bodyEncoded))
           .thenAnswer((_) async => Response('{}', 200));
 
-      await systemUnderTest.request(url: url, method: 'post');
+      await systemUnderTest.request(url: url, method: 'post', body: body);
 
-      verify(() => client.post(uri, headers: headers));
+      verify(() => client.post(uri, headers: headers, body: bodyEncoded));
     });
   });
 }
