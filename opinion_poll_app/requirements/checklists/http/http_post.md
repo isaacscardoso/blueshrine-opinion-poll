@@ -6,7 +6,8 @@
 3. ✅ Request com body correto
 4. ✅ Retorno de dados com código de status 200
 5. ✅ Retorno nulo com código de status 200 sem dados
-6. No content - 204 e resposta sem dados
+6. ✅ Retorno nulo com código de status 204 sem dados
+7. ✅ Retorno nulo com código de status 204 com dados
 
 > ## Erros
 1. Bad Request - 400
