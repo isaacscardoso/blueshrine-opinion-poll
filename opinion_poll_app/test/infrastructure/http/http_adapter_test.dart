@@ -28,7 +28,7 @@ class HttpAdapter {
       'accept': 'application/json',
     };
 
-    final bodyEncoded = jsonEncode(jsonEncode(body));
+    final bodyEncoded = body != null ? jsonEncode(jsonEncode(body)) : null;
 
     await client.post(Uri.parse(url), headers: headers, body: bodyEncoded);
   }
@@ -52,6 +52,7 @@ void main() {
     };
     body = {'any_key': 'any_value'};
     bodyEncoded = jsonEncode(jsonEncode(body));
+    client.mockRequest(Response('{}', 200));
   });
 
   setUpAll(() {
@@ -62,11 +63,15 @@ void main() {
 
   group('post', () {
     test('Should call the POST method using the correct values.', () async {
-      client.mockRequest(Response('{}', 200));
-
       await systemUnderTest.request(url: url, method: 'post', body: body);
 
       verify(() => client.post(uri, headers: headers, body: bodyEncoded));
+    });
+
+    test('Should call the POST method without body', () async {
+      await systemUnderTest.request(url: url, method: 'post');
+
+      verify(() => client.post(any(), headers: any(named: 'headers')));
     });
   });
 }
