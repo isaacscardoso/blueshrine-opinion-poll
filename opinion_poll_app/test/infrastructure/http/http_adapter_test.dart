@@ -5,7 +5,13 @@ import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class ClientSpy extends Mock implements Client {}
+class ClientSpy extends Mock implements Client {
+  When _mockRequestCall() => when(() => this
+      .post(any(), headers: any(named: 'headers'), body: any(named: 'body')));
+
+  void mockRequest(Response data) =>
+      _mockRequestCall().thenAnswer((_) async => data);
+}
 
 class HttpAdapter {
   late Client client;
@@ -51,12 +57,12 @@ void main() {
   setUpAll(() {
     url = faker.internet.httpUrl();
     uri = Uri.parse(url);
+    registerFallbackValue(uri);
   });
 
   group('post', () {
     test('Should call the POST method using the correct values.', () async {
-      when(() => client.post(uri, headers: headers, body: bodyEncoded))
-          .thenAnswer((_) async => Response('{}', 200));
+      client.mockRequest(Response('{}', 200));
 
       await systemUnderTest.request(url: url, method: 'post', body: body);
 
