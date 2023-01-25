@@ -11,8 +11,8 @@ class ClientSpy extends Mock implements Client {
   When _mockRequestCall() => when(() => this
       .post(any(), headers: any(named: 'headers'), body: any(named: 'body')));
 
-  void mockRequest(Response data) =>
-      _mockRequestCall().thenAnswer((_) async => data);
+  void mockRequest({required String body, required int statusCode}) =>
+      _mockRequestCall().thenAnswer((_) async => Response(body, statusCode));
 }
 
 class HttpAdapter implements HttpClient {
@@ -58,7 +58,6 @@ void main() {
     };
     body = {'any_key': 'any_value'};
     bodyEncoded = jsonEncode(body);
-    client.mockRequest(Response('{}', 200));
   });
 
   setUpAll(() {
@@ -68,30 +67,32 @@ void main() {
   });
 
   group('POST', () {
-    test('Should call the POST method using the correct values.', () async {
+    setUp(() {
+      client.mockRequest(body: '{}', statusCode: 200);
+    });
+
+    test('Should call the method using the correct values.', () async {
       await systemUnderTest.request(url: url, method: 'post', body: body);
 
       verify(() => client.post(uri, headers: headers, body: bodyEncoded));
     });
 
-    test('Should call the POST method without body', () async {
+    test('Should call the method without body', () async {
       await systemUnderTest.request(url: url, method: 'post');
 
       verify(() => client.post(any(), headers: any(named: 'headers')));
     });
 
-    test('Should return data if the POST method returns status 200', () async {
-      client.mockRequest(Response(bodyEncoded!, 200));
+    test('Should return data if the method returns status 200', () async {
+      client.mockRequest(body: bodyEncoded!, statusCode: 200);
 
       final response = await systemUnderTest.request(url: url, method: 'post');
 
       expect(response, body);
     });
 
-    test(
-        'Should return null if the post method returns status 200 without data.',
-        () async {
-      client.mockRequest(Response('', 200));
+    test('Should return null if method returns 200 without data.', () async {
+      client.mockRequest(body: '', statusCode: 200);
 
       final response = await systemUnderTest.request(url: url, method: 'post');
 
