@@ -4,8 +4,9 @@
 1. ✅ Request com verbo HTTP correto (POST)
 2. ✅ Enviar o contet-type: application/json nos Headers
 3. ✅ Request com body correto
-4. Ok - 200 e resposta com dados
-5. No content - 204 e resposta sem dados
+4. ✅ Retorno de dados com código de status 200
+5. ✅ Retorno nulo com código de status 200 sem dados
+6. No content - 204 e resposta sem dados
 
 > ## Erros
 1. Bad Request - 400
