@@ -5,7 +5,7 @@ import 'package:faker/faker.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import 'package:opinion_poll_app/data/http/http.dart';
+import 'package:opinion_poll_app/infrastructure/http/http.dart';
 
 class ClientSpy extends Mock implements Client {
   When _mockRequestCall() => when(() => this
@@ -13,32 +13,6 @@ class ClientSpy extends Mock implements Client {
 
   void mockRequest({required String body, required int statusCode}) =>
       _mockRequestCall().thenAnswer((_) async => Response(body, statusCode));
-}
-
-class HttpAdapter implements HttpClient {
-  late Client client;
-
-  HttpAdapter(this.client);
-
-  @override
-  Future<dynamic> request({
-    required String url,
-    required String method,
-    Map? body,
-    Map? headers,
-  }) async {
-    final headers = {
-      'content-type': 'application/json',
-      'accept': 'application/json',
-    };
-
-    final uri = Uri.parse(url);
-    final jsonBody = body != null ? jsonEncode(body) : null;
-    final response = await client.post(uri, headers: headers, body: jsonBody);
-
-    if (response.statusCode == 204) return null;
-    return response.body.isNotEmpty ? jsonDecode(response.body) : null;
-  }
 }
 
 void main() {
