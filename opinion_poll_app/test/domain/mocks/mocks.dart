@@ -1,1 +1,1 @@
-export 'parameters_factory.dart';
+export './parameters_factory.dart';
