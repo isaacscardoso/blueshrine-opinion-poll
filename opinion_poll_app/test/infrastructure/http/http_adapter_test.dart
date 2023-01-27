@@ -42,7 +42,17 @@ void main() {
     registerFallbackValue(uri);
   });
 
-  group('POST', () {
+  group('shared', () {
+    test('Should return Server Error if Http method is invalid.', () async {
+      client.mockRequest(body: bodyEncoded!, statusCode: 200);
+
+      final future = systemUnderTest.request(url: url, method: '?');
+
+      expect(future, throwsA(HttpError.internalServerError));
+    });
+  });
+
+  group('post', () {
     setUp(() {
       client.mockRequest(body: '{}', statusCode: 200);
     });
@@ -125,6 +135,14 @@ void main() {
 
     test('Should return Server Error if method returns status 500', () async {
       client.mockRequest(body: bodyEncoded!, statusCode: 500);
+
+      final future = systemUnderTest.request(url: url, method: 'post');
+
+      expect(future, throwsA(HttpError.internalServerError));
+    });
+
+    test('Should return Server Error if method returns not listed', () async {
+      client.mockRequest(body: bodyEncoded!, statusCode: 100);
 
       final future = systemUnderTest.request(url: url, method: 'post');
 
