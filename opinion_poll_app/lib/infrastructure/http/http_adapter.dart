@@ -26,18 +26,20 @@ class HttpAdapter implements HttpClient {
           );
 
     final String? jsonBody = body != null ? jsonEncode(body) : null;
-    final Response response = await client.post(
-      Uri.parse(url),
-      headers: defaultHeaders,
-      body: jsonBody,
-    );
+    final Map httpMethodsResponse = {
+      'post': client.post(
+        Uri.parse(url),
+        headers: defaultHeaders,
+        body: jsonBody,
+      ),
+    };
 
+    final response = await httpMethodsResponse[method] ?? Response('', 500);
     return _responseHandle(response);
   }
 
   dynamic _responseHandle(Response response) {
     final int statusCode = response.statusCode;
-
     final Map<int, dynamic> treatmentForEachStatusCode = {
       200: response.body.isNotEmpty ? jsonDecode(response.body) : null,
       204: null,
