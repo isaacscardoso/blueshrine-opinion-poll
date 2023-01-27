@@ -16,11 +16,14 @@ class HttpAdapter implements HttpClient {
     Map? body,
     Map? headers,
   }) async {
-    final defaultHeaders = headers?.cast<String, String>() ?? {}
-      ..addAll({
-        'content-type': 'application/json',
-        'accept': 'application/json',
-      });
+    final Map<String, String> defaultHeaders =
+        headers?.cast<String, String>() ?? {}
+          ..addAll(
+            {
+              'content-type': 'application/json',
+              'accept': 'application/json',
+            },
+          );
 
     final String? jsonBody = body != null ? jsonEncode(body) : null;
     final Response response = await client.post(Uri.parse(url),

@@ -21,7 +21,7 @@ class RemoteAuthentication implements Authentication {
       {required AuthenticationParameters parameters}) async {
     final body = RemoteAuthenticationParameters.fromDomain(parameters).toJson();
     try {
-      final httpResponse = await httpClient.request(
+      final dynamic httpResponse = await httpClient.request(
         url: url,
         method: 'POST',
         body: body,
