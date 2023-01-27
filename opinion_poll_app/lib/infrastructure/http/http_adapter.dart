@@ -22,29 +22,33 @@ class HttpAdapter implements HttpClient {
         'accept': 'application/json',
       });
 
-    final jsonBody = body != null ? jsonEncode(body) : null;
-    final response = await client.post(Uri.parse(url),
+    final String? jsonBody = body != null ? jsonEncode(body) : null;
+    final Response response = await client.post(Uri.parse(url),
         headers: defaultHeaders, body: jsonBody);
 
     return _responseHandle(response);
   }
 
   dynamic _responseHandle(Response response) {
-    switch (response.statusCode) {
-      case 200:
-        return response.body.isNotEmpty ? jsonDecode(response.body) : null;
-      case 204:
-        return null;
-      case 400:
-        throw HttpError.badRequest;
-      case 401:
-        throw HttpError.unauthorized;
-      case 403:
-        throw HttpError.forbidden;
-      case 404:
-        throw HttpError.notFound;
-      default:
-        throw HttpError.internalServerError;
+    final int statusCode = response.statusCode;
+
+    final Map<int, dynamic> treatmentForEachStatusCode = {
+      200: response.body.isNotEmpty ? jsonDecode(response.body) : null,
+      204: null,
+    };
+
+    const Map<int, HttpError> httpErrorResponse = {
+      400: HttpError.badRequest,
+      401: HttpError.unauthorized,
+      403: HttpError.forbidden,
+      404: HttpError.notFound,
+      500: HttpError.internalServerError,
+    };
+
+    if (treatmentForEachStatusCode.containsKey(statusCode)) {
+      return treatmentForEachStatusCode[statusCode];
     }
+
+    throw httpErrorResponse[statusCode]!;
   }
 }

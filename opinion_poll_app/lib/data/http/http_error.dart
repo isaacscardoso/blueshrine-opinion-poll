@@ -8,20 +8,15 @@ enum HttpError {
 }
 
 extension HttpErrorStatusCode on HttpError {
-  int get statusCode {
-    switch (this) {
-      case HttpError.badRequest:
-        return 400;
-      case HttpError.unauthorized:
-        return 401;
-      case HttpError.forbidden:
-        return 403;
-      case HttpError.notFound:
-        return 404;
-      case HttpError.internalServerError:
-        return 500;
-      case HttpError.badGateway:
-        return 502;
-    }
+  int? get statusCode {
+    const codes = {
+      HttpError.badRequest: 400,
+      HttpError.unauthorized: 401,
+      HttpError.forbidden: 403,
+      HttpError.notFound: 404,
+      HttpError.internalServerError: 500,
+      HttpError.badGateway: 502,
+    };
+    return codes[this];
   }
 }
