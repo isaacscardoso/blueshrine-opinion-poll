@@ -26,8 +26,11 @@ class HttpAdapter implements HttpClient {
           );
 
     final String? jsonBody = body != null ? jsonEncode(body) : null;
-    final Response response = await client.post(Uri.parse(url),
-        headers: defaultHeaders, body: jsonBody);
+    final Response response = await client.post(
+      Uri.parse(url),
+      headers: defaultHeaders,
+      body: jsonBody,
+    );
 
     return _responseHandle(response);
   }
@@ -52,6 +55,6 @@ class HttpAdapter implements HttpClient {
       return treatmentForEachStatusCode[statusCode];
     }
 
-    throw httpErrorResponse[statusCode]!;
+    throw httpErrorResponse[statusCode] ?? HttpError.internalServerError;
   }
 }
