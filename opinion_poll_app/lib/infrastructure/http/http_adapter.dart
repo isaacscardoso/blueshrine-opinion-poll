@@ -26,13 +26,19 @@ class HttpAdapter implements HttpClient {
           );
 
     final String? jsonBody = body != null ? jsonEncode(body) : null;
-    final Map httpMethodsResponse = {
-      'post': client.post(
-        Uri.parse(url),
-        headers: defaultHeaders,
-        body: jsonBody,
-      ),
-    };
+    late Map<String, dynamic> httpMethodsResponse;
+
+    try {
+      httpMethodsResponse = {
+        'post': client.post(
+          Uri.parse(url),
+          headers: defaultHeaders,
+          body: jsonBody,
+        ),
+      };
+    } catch (error) {
+      throw HttpError.internalServerError;
+    }
 
     final response = await httpMethodsResponse[method] ?? Response('', 500);
     return _responseHandle(response);
