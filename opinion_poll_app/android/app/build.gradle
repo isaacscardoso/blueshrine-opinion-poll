@@ -21,6 +21,16 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def flutterMinSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
+if (flutterMinSdkVersion == null) {
+    flutterMinSdkVersion = flutter.minSdkVersion.toString()
+}
+
+def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')
+if (flutterTargetSdkVersion == null) {
+    flutterTargetSdkVersion = flutter.targetSdkVersion.toString()
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -47,8 +57,8 @@ android {
         applicationId "isaacscardoso.com.github.opinion_poll_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion flutterMinSdkVersion.toInteger()
+        targetSdkVersion flutterTargetSdkVersion.toInteger()
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
