@@ -1,14 +1,16 @@
 enum HttpError {
-  badRequest,
-  unauthorized,
-  forbidden,
-  notFound,
-  internalServerError,
-  badGateway,
-}
+  badRequest('400 - Bad Request'),
+  unauthorized('401 - Unauthorized'),
+  forbidden('403 - Forbidden'),
+  notFound('404 - Not Found'),
+  internalServerError('500 - Internal Server Error'),
+  badGateway('502 - Bad Gateway');
 
-extension HttpErrorStatusCode on HttpError {
-  int? get statusCode {
+  final String description;
+
+  const HttpError(this.description);
+
+  get statusCode {
     const codes = {
       HttpError.badRequest: 400,
       HttpError.unauthorized: 401,
